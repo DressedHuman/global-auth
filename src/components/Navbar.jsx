@@ -1,10 +1,30 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOutUser } = useContext(AuthContext);
+
+    const logOut = () => {
+        logOutUser()
+            .then(() => {
+                console.log('Log out successful!');
+            })
+            .catch(error => console.error(error));
+    }
+
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
         <li><NavLink to={'/login'}>Login</NavLink></li>
         <li><NavLink to={'/register'}>Register</NavLink></li>
+        {
+            user &&
+            <>
+                <li><NavLink to={'/orders'}>Orders</NavLink></li>
+                <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+                <li><NavLink to={'/profile'}>Profile</NavLink></li>
+            </>
+        }
     </>
     return (
         <div className="navbar bg-base-100">
@@ -17,7 +37,7 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                <a className="btn btn-ghost normal-case text-xl">Global Auth</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 gap-4">
@@ -25,7 +45,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user ? <>
+                        <span>{user.email}</span>
+                        <button onClick={() => logOut()} className="btn btn-sm capitalize">Sign out</button>
+                    </>
+                        :
+                        <span>You&apos;re not logged in!</span>
+                }
+
             </div>
         </div>
     );
