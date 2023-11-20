@@ -10,11 +10,13 @@ import AuthProvider from './providers/AuthProvider'
 import Orders from './components/Orders'
 import PrivateRoute from './routes/PrivateRoute'
 import Profile from './components/Profile'
+import ErrorPage from './components/ErrorPage'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',
