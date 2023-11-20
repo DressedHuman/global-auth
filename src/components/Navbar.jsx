@@ -15,14 +15,15 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/login'}>Login</NavLink></li>
-        <li><NavLink to={'/register'}>Register</NavLink></li>
+        { }
         {
-            user &&
-            <>
+            (user && <>
                 <li><NavLink to={'/orders'}>Orders</NavLink></li>
                 <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
                 <li><NavLink to={'/profile'}>Profile</NavLink></li>
+            </>) || <>
+                <li><NavLink to={'/login'}>Login</NavLink></li>
+                <li><NavLink to={'/register'}>Register</NavLink></li>
             </>
         }
     </>
@@ -47,7 +48,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 {
                     user ? <>
-                        <span>{user.email}</span>
+                        <span>{ user.displayName || user.email}</span>
                         <button onClick={() => logOut()} className="btn btn-sm capitalize">Sign out</button>
                     </>
                         :

@@ -3,9 +3,9 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Home = () => {
     const { user, loading } = useContext(AuthContext);
-    return <span>
+    return <span className="flex justify-center items-center">
         {
-            (loading && <span className="loading loading-lg loading-ball"/>) || <h2 className="text-3xl">Welcome, {user?.email || "Farhana Humayara"}!</h2>
+            (loading && <span className="loading loading-lg loading-ball text-[green]"/>) || <h2 className="text-3xl">Welcome, {user?.displayName || user?.email || "User"}!</h2>
         }
     </span>;
 };

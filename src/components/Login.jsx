@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
-    const { signInUser, user } = useContext(AuthContext);
+    const { signInUser, user, signInPopup, providerGoogle } = useContext(AuthContext);
 
 
     const handleLogin = e => {
@@ -15,6 +15,12 @@ const Login = () => {
                 e.target.reset();
             })
             .catch(error => console.error(error));
+    }
+
+    const handleLoginWithProvider = provider => {
+        signInPopup(provider)
+        .then(()=>{})
+        .catch(error=>console.error(error));
     }
 
     return <>
@@ -44,6 +50,12 @@ const Login = () => {
                                 <button className="btn btn-primary">Login</button>
                             </div>
                         </form>
+                        <div className="text-center my-2">
+                            <p className="text-sm">Or login with</p>
+                            <span>
+                                <button onClick={() => handleLoginWithProvider(providerGoogle)} className="btn btn-ghost">Google</button>
+                            </span>
+                        </div>
                         <p className="text-center my-2">New to Global Auth? Register <Link to={'/register'} className="btn-link">here</Link></p>
                     </div>
                 </div>
